@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Main where
 
 import Lib
@@ -26,4 +25,3 @@ toInt x = read x :: Int
 main = do 
    ls <- fmap parse (getInput "input")
    print $ calculatePosition ls 0 0
-
