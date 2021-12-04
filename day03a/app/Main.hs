@@ -31,8 +31,6 @@ get0or1 xs
 count :: [Char] -> Int
 count xs = length (filter (=='1') xs)
 
-
-
 getInput :: [Char] -> IO [[Char]]
 getInput filename = fmap lines (readFile filename)
 
