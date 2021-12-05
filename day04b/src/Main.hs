@@ -48,5 +48,5 @@ main = do
   ls <- fmap lines (readFile "input")
   let lottery = map toInt (words (head ls))
   let rest = tail ls
-  let bingos = groupsOfN 5 (filter (not . null) (map (map toInt) (map words rest)))
+  let bingos = groupsOfN 5 (filter (not . null) (map (map toInt . words) rest))
   print $ score bingos lottery
