@@ -17,6 +17,8 @@ simulateFishBreeding fs days
 decreaseTimerAndBreed :: Fishes -> Fishes
 decreaseTimerAndBreed (a, b, c, d, e, f, g, h, i) = (b, c, d, e, f, g, h + a, i, a)
 
+-- parsing code below
+toInt :: String -> Int
 toInt x = read x :: Int
 
 unsafeMap :: [Int] -> Fishes
