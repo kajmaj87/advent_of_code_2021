@@ -1,7 +1,7 @@
 module Main where
 
 import Data.Map.Strict hiding (map)
-import Prelude hiding (filter)
+import Prelude hiding (filter, lookup)
 
 type Point = (Int, Int)
 
@@ -16,6 +16,15 @@ type DangerMap = Map Point Int
 dangerValue :: Lines -> Int
 dangerValue ls = size (filter (>= 2) (calculateDanger ls))
 
+showDanger :: DangerMap -> [[Char]]
+showDanger d = map line [0 .. 9]
+  where
+    line y = map (toChar . (\x -> lookup (x, y) d)) [0 .. 9]
+
+toChar :: Maybe Int -> Char
+toChar (Just i) = head (show i)
+toChar Nothing = '.'
+
 calculateDanger :: Lines -> DangerMap
 calculateDanger ls = applyDanger ls empty
   where
@@ -29,7 +38,7 @@ dangerFromLine :: Line -> DangerMap
 dangerFromLine ((x1, y1), (x2, y2))
   | x1 == x2 = fromList [((x1, y), 1) | y <- [(min y1 y2) .. (max y1 y2)]]
   | y1 == y2 = fromList [((x, y1), 1) | x <- [(min x1 x2) .. (max x1 x2)]]
-  | x1 + x2 == y1 + y2 = dangerFromDiagonal ((x1, y1), (x2, y2))
+  | abs (x1 - x2) == abs (y1 - y2) = dangerFromDiagonal ((x1, y1), (x2, y2))
   | otherwise = empty
 
 dangerFromDiagonal :: Line -> DangerMap
